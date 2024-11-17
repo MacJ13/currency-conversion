@@ -14,3 +14,16 @@ export type LabelProps = ElementProps & {
 };
 
 export type FlexProps = ElementProps;
+
+type Input = {
+  type: string;
+  name: string;
+  id: string;
+  value?: string;
+};
+
+export type InputProps = ElementProps & {
+  input: Input;
+  checked?: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
