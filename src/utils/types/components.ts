@@ -12,3 +12,5 @@ export type HeadingProps = ElementProps & {
 export type LabelProps = ElementProps & {
   htmlFor: string;
 };
+
+export type FlexProps = ElementProps;
