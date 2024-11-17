@@ -2,8 +2,12 @@ import type { Action, ThunkAction } from "@reduxjs/toolkit";
 
 import { configureStore } from "@reduxjs/toolkit";
 
+import currencyReducer from "./currency/currencySlice";
+
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    currency: currencyReducer,
+  },
 });
 
 // Infer the type of store
