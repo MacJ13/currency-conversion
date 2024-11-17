@@ -8,3 +8,7 @@ type ElementProps = {
 export type HeadingProps = ElementProps & {
   type?: string;
 };
+
+export type LabelProps = ElementProps & {
+  htmlFor: string;
+};
