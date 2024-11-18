@@ -27,3 +27,8 @@ export type InputProps = ElementProps & {
   checked?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
+
+export type SplitPaneProps = {
+  left: ReactElement;
+  right: ReactElement;
+};
