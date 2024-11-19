@@ -5,6 +5,11 @@ type ElementProps = {
   className?: string;
 };
 
+export type ButtonProps = ElementProps & {
+  onClick: () => void;
+  disabled?: boolean;
+};
+
 export type HeadingProps = ElementProps & {
   type?: string;
 };
