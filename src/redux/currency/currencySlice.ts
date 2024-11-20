@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { CurrencyState, CurrencyOrigin } from "../types/currency";
+import {
+  CurrencyState,
+  CurrencyOrigin,
+  CurrencyCounter,
+} from "../types/currency";
 
 // Define the TS type for the counter slice's state
 
@@ -32,16 +36,23 @@ export const currencySlice = createSlice({
 
       state.origin = origin;
     },
+    countCurrency: (state, action: PayloadAction<CurrencyCounter>) => {
+      state.counter.baseCurrency = action.payload.baseCurrency;
+      state.counter.counterCurrency = action.payload.counterCurrency;
+      state.counter.resultCurrency = action.payload.resultCurrency;
+    },
   },
 });
 
 // Export the generate actoin creators for use in components
-export const { chooseOrigin } = currencySlice.actions;
+export const { chooseOrigin, countCurrency } = currencySlice.actions;
 
 // Selector functions allows us to select a value from the Redux root state.
 // Selectors can also be defined inline in the `useSelector` call
 // in a component, or inside the `createSlice.selectors` field.
 export const selectCurrencyOrigin = (state: RootState) => state.currency.origin;
 
+export const selectCurrencyCounter = (state: RootState) =>
+  state.currency.counter;
 // export the slice reducer for use in the store configuration
 export default currencySlice.reducer;
