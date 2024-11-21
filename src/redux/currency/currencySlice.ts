@@ -84,12 +84,26 @@ export const currencySlice = createSlice({
 
       state.nbpTable[type].currency = typedCurrency;
     },
+
+    enterNBPDate: (
+      state,
+      action: PayloadAction<{ type: string; date: string }>
+    ) => {
+      const typedDate = action.payload.date;
+      const type = action.payload.type;
+      state.nbpTable[type].date = typedDate;
+    },
   },
 });
 
 // Export the generate actoin creators for use in components
-export const { chooseOrigin, countCurrency, changeNBPTable, enterNBPCurrency } =
-  currencySlice.actions;
+export const {
+  chooseOrigin,
+  countCurrency,
+  changeNBPTable,
+  enterNBPCurrency,
+  enterNBPDate,
+} = currencySlice.actions;
 
 // Selector functions allows us to select a value from the Redux root state.
 // Selectors can also be defined inline in the `useSelector` call
