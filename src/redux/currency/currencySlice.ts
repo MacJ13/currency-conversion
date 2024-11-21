@@ -66,7 +66,7 @@ export const currencySlice = createSlice({
     },
     changeNBPTable: (
       state,
-      action: PayloadAction<{ table: string; type: string }>
+      action: PayloadAction<{ type: string; table: string }>
     ) => {
       const currentTable = action.payload.table;
 
@@ -74,11 +74,21 @@ export const currencySlice = createSlice({
 
       state.nbpTable[type].table = currentTable as "a" | "b";
     },
+    enterNBPCurrency: (
+      state,
+      action: PayloadAction<{ type: string; currency: string }>
+    ) => {
+      const typedCurrency = action.payload.currency;
+
+      const type = action.payload.type;
+
+      state.nbpTable[type].currency = typedCurrency;
+    },
   },
 });
 
 // Export the generate actoin creators for use in components
-export const { chooseOrigin, countCurrency, changeNBPTable } =
+export const { chooseOrigin, countCurrency, changeNBPTable, enterNBPCurrency } =
   currencySlice.actions;
 
 // Selector functions allows us to select a value from the Redux root state.
