@@ -37,3 +37,7 @@ export type SplitPaneProps = {
   left: ReactElement;
   right: ReactElement;
 };
+
+export type FieldNBPProps = {
+  type: string;
+};
