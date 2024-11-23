@@ -36,6 +36,40 @@ const initialState: CurrencyState = {
   conversionRate: 0,
 };
 
+// async thunk to fetch users from an API
+export const fetchCurrencyNBP = createAsyncThunk(
+  "currency/fetchCurrencyNBP",
+  async (_, { getState }) => {
+    const state = getState() as RootState;
+
+    const { nbpBase, nbpCurrent } = state.nbp;
+
+    try {
+      const [res1, res2] = await Promise.all([
+        fetch(
+          `https://api.nbp.pl/api/exchangerates/rates/${nbpBase.table}/${nbpBase.currency}/${nbpBase.date}/`
+        ),
+        fetch(
+          `https://api.nbp.pl/api/exchangerates/rates/${nbpCurrent.table}/${nbpCurrent.currency}/${nbpCurrent.date}/`
+        ),
+      ]);
+
+      console.log(res1, res2);
+
+      [res1, res2].forEach((res) => {
+        if (!res.ok) throw Error(res.statusText);
+      });
+
+      const table1 = await res1.json();
+      const table2 = await res2.json();
+
+      return [table1, table2];
+    } catch (err) {
+      throw err;
+    }
+  }
+);
+
 // Slices contain Redux reducer logic for updating state, and
 // generate actions that can be dispatched to trigger those updates
 
@@ -62,6 +96,35 @@ export const currencySlice = createSlice({
         action.payload.counterCurrency;
       state.conversionRate = +action.payload.rate.toFixed(4);
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCurrencyNBP.pending, (state) => {
+        state.nbpCurrencyData.status = "loading";
+      })
+      .addCase(fetchCurrencyNBP.fulfilled, (state, action) => {
+        state.nbpCurrencyData.status = "succeeded";
+        console.log(action.payload);
+        const [base, counter] = action.payload;
+
+        state.nbpCurrencyData.baseCurrency = base.code;
+        state.nbpCurrencyData.baseRate = base.rates[0].mid;
+
+        state.nbpCurrencyData.counterCurrency = counter.code;
+        state.nbpCurrencyData.counterRate = counter.rates[0].mid;
+
+        console.log(base.rates[0].mid / counter.rates[0].mid);
+
+        const conversion = base.rates[0].mid / counter.rates[0].mid;
+
+        state.conversionRate = +conversion.toFixed(4);
+      })
+      .addCase(fetchCurrencyNBP.rejected, (state, action) => {
+        state.nbpCurrencyData.status = "failed";
+
+        state.nbpCurrencyData.error = action.error.message;
+        console.log(action.error);
+      });
   },
 });
 
