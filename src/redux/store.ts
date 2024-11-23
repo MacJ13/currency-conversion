@@ -3,10 +3,12 @@ import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { configureStore } from "@reduxjs/toolkit";
 
 import currencyReducer from "./currency/currencySlice";
+import nbpReducer from "./nbp/nbpSlice";
 
 export const store = configureStore({
   reducer: {
     currency: currencyReducer,
+    nbp: nbpReducer,
   },
 });
 
