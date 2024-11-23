@@ -1,26 +1,22 @@
-export type CurrencyCounter = {
-  baseCurrency: string;
-  counterCurrency: string;
-  resultCurrency: number;
-};
-
 export type CurrencyOrigin = "invoice" | "nbp";
 
-export type NBP = {
-  type: string;
-  label: string;
-  table: "a" | "b";
-  currency: string;
-  date: string;
-  value: number;
+type CurrencyData = {
+  baseCurrency: string;
+  counterCurrency: string;
+};
+
+export type InvoiceCurrencyData = CurrencyData;
+
+export type NBPCurrencyData = CurrencyData & {
+  baseRate: number;
+  counterRate: number;
+  error?: null | string;
+  status?: "idle" | "loading" | "succeeded" | "failed";
 };
 
 export type CurrencyState = {
   origin: CurrencyOrigin;
-  counter: CurrencyCounter;
-  nbpTable: {
-    [key: string]: NBP;
-    nbpBase: NBP;
-    nbpCurrent: NBP;
-  };
+  invoiceCurrencyData: InvoiceCurrencyData;
+  nbpCurrencyData: NBPCurrencyData;
+  conversionRate: number;
 };

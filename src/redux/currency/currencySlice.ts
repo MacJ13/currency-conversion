@@ -1,11 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import {
   CurrencyState,
   CurrencyOrigin,
-  CurrencyCounter,
-  NBP,
+  NBPCurrencyData,
+  InvoiceCurrencyData,
 } from "../types/currency";
 
 // Define the TS type for the counter slice's state
@@ -13,37 +13,27 @@ import {
 // export type Origin = "invoice" | "nbp";
 
 // Define the initial value for the slice state
-const initialCounter = {
+
+const nbpCurrencyData: NBPCurrencyData = {
   baseCurrency: "",
   counterCurrency: "",
-  resultCurrency: 0,
+  baseRate: 0,
+  counterRate: 0,
+  error: null,
+  status: "idle",
 };
 
-const initialBaseNBP: NBP = {
-  type: "nbpBase",
-  label: "Waluta bazowa",
-  table: "a",
-  currency: "",
-  date: "",
-  value: 0,
-};
-
-const initialCurrentNBP: NBP = {
-  type: "nbpCurrent",
-  label: "Waluta kwotowana",
-  table: "b",
-  currency: "",
-  date: "",
-  value: 0,
+const invoiceCurrencyData: InvoiceCurrencyData = {
+  baseCurrency: "",
+  counterCurrency: "",
 };
 
 const initialState: CurrencyState = {
   origin: "invoice",
-  counter: initialCounter,
-  nbpTable: {
-    nbpBase: initialBaseNBP,
-    nbpCurrent: initialCurrentNBP,
-  },
+  invoiceCurrencyData,
+  nbpCurrencyData,
+  // counter: initialCounter,
+  conversionRate: 0,
 };
 
 // Slices contain Redux reducer logic for updating state, and
@@ -59,61 +49,33 @@ export const currencySlice = createSlice({
 
       state.origin = origin;
     },
-    countCurrency: (state, action: PayloadAction<CurrencyCounter>) => {
-      state.counter.baseCurrency = action.payload.baseCurrency;
-      state.counter.counterCurrency = action.payload.counterCurrency;
-      state.counter.resultCurrency = action.payload.resultCurrency;
-    },
-    changeNBPTable: (
+    countCurrencyFromInvoice: (
       state,
-      action: PayloadAction<{ type: string; table: string }>
+      action: PayloadAction<{
+        baseCurrency: string;
+        counterCurrency: string;
+        rate: number;
+      }>
     ) => {
-      const currentTable = action.payload.table;
-
-      const type = action.payload.type;
-
-      state.nbpTable[type].table = currentTable as "a" | "b";
-    },
-    enterNBPCurrency: (
-      state,
-      action: PayloadAction<{ type: string; currency: string }>
-    ) => {
-      const typedCurrency = action.payload.currency;
-
-      const type = action.payload.type;
-
-      state.nbpTable[type].currency = typedCurrency;
-    },
-
-    enterNBPDate: (
-      state,
-      action: PayloadAction<{ type: string; date: string }>
-    ) => {
-      const typedDate = action.payload.date;
-      const type = action.payload.type;
-      state.nbpTable[type].date = typedDate;
+      state.invoiceCurrencyData.baseCurrency = action.payload.baseCurrency;
+      state.invoiceCurrencyData.counterCurrency =
+        action.payload.counterCurrency;
+      state.conversionRate = +action.payload.rate.toFixed(4);
     },
   },
 });
 
 // Export the generate actoin creators for use in components
-export const {
-  chooseOrigin,
-  countCurrency,
-  changeNBPTable,
-  enterNBPCurrency,
-  enterNBPDate,
-} = currencySlice.actions;
+export const { chooseOrigin, countCurrencyFromInvoice } = currencySlice.actions;
 
 // Selector functions allows us to select a value from the Redux root state.
 // Selectors can also be defined inline in the `useSelector` call
 // in a component, or inside the `createSlice.selectors` field.
 export const selectCurrencyOrigin = (state: RootState) => state.currency.origin;
 
-export const selectCurrencyCounter = (state: RootState) =>
-  state.currency.counter;
-
-export const selectCurrentNbp = (state: RootState, current: string) =>
-  state.currency.nbpTable[current];
+// export const selectCurrencyCounter = (state: RootState) =>
+//   state.currency.;
+export const selectCurrencyRate = (state: RootState) =>
+  state.currency.conversionRate;
 // export the slice reducer for use in the store configuration
 export default currencySlice.reducer;
