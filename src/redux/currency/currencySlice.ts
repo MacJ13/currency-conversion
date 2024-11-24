@@ -100,7 +100,7 @@ export const currencySlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchCurrencyNBP.pending, (state) => {
-        state.nbpCurrencyData.status = "loading";
+        state.nbpCurrencyData = { ...nbpCurrencyData, status: "loading" };
       })
       .addCase(fetchCurrencyNBP.fulfilled, (state, action) => {
         state.nbpCurrencyData.status = "succeeded";
@@ -109,9 +109,11 @@ export const currencySlice = createSlice({
 
         state.nbpCurrencyData.baseCurrency = base.code;
         state.nbpCurrencyData.baseRate = base.rates[0].mid;
+        state.nbpCurrencyData.baseDate = base.rates[0].effectiveDate;
 
         state.nbpCurrencyData.counterCurrency = counter.code;
         state.nbpCurrencyData.counterRate = counter.rates[0].mid;
+        state.nbpCurrencyData.counterDate = counter.rates[0].effectiveDate;
 
         const conversion = base.rates[0].mid / counter.rates[0].mid;
 
@@ -121,6 +123,10 @@ export const currencySlice = createSlice({
         state.nbpCurrencyData.status = "failed";
 
         console.log(action.error);
+
+        state.nbpCurrencyData.error =
+          action.error.message +
+          ". Sróbuj ponownie wypełnić pola danych dla nbp";
       });
   },
 });
