@@ -22,7 +22,7 @@ const CurrencyEntryInvoice = () => {
       <Heading type="h3" className="text-xl text-center mb-2">
         1a. Wypełnij dane (faktura)
       </Heading>
-      <Flex>
+      <Flex className="flex flex-col">
         <Flex className="flex gap-2.5 mb-2 items-center">
           <Label className="font-semibold w-36" htmlFor="baseCurrency">
             waluta bazowa:
@@ -80,27 +80,28 @@ const CurrencyEntryInvoice = () => {
             />
           </Flex>
         </Flex>
-
-        <Button
-          onClick={() => {
-            dispatch(
-              countCurrencyFromInvoice({
-                baseCurrency: baseCurrency.toLowerCase(),
-                counterCurrency: counterCurrency.toLowerCase(),
-                rate: numberValue ? numberValue : 0,
-              })
-            );
-          }}
-          className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded  opacity-100 disabled:opacity-50 "
-          disabled={
-            counterCurrency === baseCurrency ||
-            counterCurrency.length !== 3 ||
-            baseCurrency.length !== 3 ||
-            !Boolean(numberValue)
-          }
-        >
-          następny krok
-        </Button>
+        <Flex className="flex justify-center ">
+          <Button
+            onClick={() => {
+              dispatch(
+                countCurrencyFromInvoice({
+                  baseCurrency: baseCurrency.toLowerCase(),
+                  counterCurrency: counterCurrency.toLowerCase(),
+                  rate: numberValue ? numberValue : 0,
+                })
+              );
+            }}
+            className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded  opacity-100 disabled:opacity-50 "
+            disabled={
+              counterCurrency === baseCurrency ||
+              counterCurrency.length !== 3 ||
+              baseCurrency.length !== 3 ||
+              !Boolean(numberValue)
+            }
+          >
+            następny krok
+          </Button>
+        </Flex>
       </Flex>
     </Flex>
   );
