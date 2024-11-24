@@ -38,6 +38,10 @@ const initialState: CurrencyState = {
   conversionRate: 0,
 };
 
+// function time(ms: number) {
+//   return new Promise((resolve) => setTimeout(resolve, ms));
+// }
+
 // async thunk to fetch users from an API
 export const fetchCurrencyNBP = createAsyncThunk(
   "currency/fetchCurrencyNBP",
@@ -148,6 +152,18 @@ export const selectCurrencyOrigin = (state: RootState) => state.currency.origin;
 //   state.currency.;
 export const selectCurrencyRate = (state: RootState) =>
   state.currency.conversionRate;
+
+export const selectNBPCurrencies = (state: RootState) =>
+  state.currency.nbpCurrencyData;
+
+export const selectInvoiceCurrencies = (state: RootState) =>
+  state.currency.invoiceCurrencyData;
+
+export const isLoadingStatus = (state: RootState) =>
+  state.currency.nbpCurrencyData.status === "loading";
+
+export const selectNBPError = (state: RootState) =>
+  state.currency.nbpCurrencyData.error;
 
 // export the slice reducer for use in the store configuration
 export default currencySlice.reducer;
