@@ -52,10 +52,14 @@ export const nbpSlice = createSlice({
 
       state[type].date = date;
     },
+    clearNBP: (state) => {
+      state.nbpBase = initialBaseNBP;
+      state.nbpCurrent = initialCurrentNBP;
+    },
   },
 });
 
-export const { changeNBPTable, enterNBPDate, enterNBPCurrency } =
+export const { changeNBPTable, enterNBPDate, enterNBPCurrency, clearNBP } =
   nbpSlice.actions;
 
 export const selectNBPBoard = (state: RootState) => {

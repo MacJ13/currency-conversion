@@ -9,6 +9,7 @@ import {
 } from "../../redux/currency/currencySlice";
 import { RADIO_BUTTONS_DATA } from "../../utils/constants/constants";
 import { CurrencyOrigin as Origin } from "../../redux/types/currency";
+import { clearNBP } from "../../redux/nbp/nbpSlice";
 
 const CurrencyOrigin = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const CurrencyOrigin = () => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               const origin = e.target.value as Origin;
               dispatch(chooseOrigin(origin));
+              dispatch(clearNBP());
             }}
           />
           <Label htmlFor={radioBtn.id}>{radioBtn.label}</Label>
