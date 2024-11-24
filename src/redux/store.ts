@@ -4,11 +4,13 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import currencyReducer from "./currency/currencySlice";
 import nbpReducer from "./nbp/nbpSlice";
+import invoicesReducer from "./invoices/invoicesSlice";
 
 export const store = configureStore({
   reducer: {
     currency: currencyReducer,
     nbp: nbpReducer,
+    invoices: invoicesReducer,
   },
 });
 
