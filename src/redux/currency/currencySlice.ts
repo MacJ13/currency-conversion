@@ -82,6 +82,10 @@ export const currencySlice = createSlice({
       const origin = action.payload;
 
       state.origin = origin;
+
+      state.invoiceCurrencyData = invoiceCurrencyData;
+      state.nbpCurrencyData = nbpCurrencyData;
+      state.conversionRate = 0;
     },
     countCurrencyFromInvoice: (
       state,
@@ -100,6 +104,7 @@ export const currencySlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchCurrencyNBP.pending, (state) => {
+        // state.nbpCurrencyData.status = "loading";
         state.nbpCurrencyData = { ...nbpCurrencyData, status: "loading" };
       })
       .addCase(fetchCurrencyNBP.fulfilled, (state, action) => {
@@ -143,5 +148,6 @@ export const selectCurrencyOrigin = (state: RootState) => state.currency.origin;
 //   state.currency.;
 export const selectCurrencyRate = (state: RootState) =>
   state.currency.conversionRate;
+
 // export the slice reducer for use in the store configuration
 export default currencySlice.reducer;
