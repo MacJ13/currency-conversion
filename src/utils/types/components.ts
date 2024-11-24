@@ -1,4 +1,5 @@
 import { ReactElement } from "react";
+import { Invoice } from "../../redux/types/invoices";
 
 type ElementProps = {
   children?: React.ReactNode | string;
@@ -40,4 +41,8 @@ export type SplitPaneProps = {
 
 export type FieldNBPProps = {
   type: string;
+};
+
+export type InvoiceFieldProps = {
+  invoice: Invoice;
 };
