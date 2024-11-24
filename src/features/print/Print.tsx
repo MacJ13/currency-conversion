@@ -1,12 +1,14 @@
 import { useSelector } from "react-redux";
-import { selectCurrencyRate } from "../../redux/currency/currencySlice";
+import { selectCurrencyOrigin } from "../../redux/currency/currencySlice";
+import PrintNBP from "./PrintNBP";
+import PrintInvoice from "./PrintInvoice";
 
 const Print = () => {
-  const conversionRate = useSelector(selectCurrencyRate);
+  const origin = useSelector(selectCurrencyOrigin);
+
   return (
-    <div>
-      <div>Druk</div>
-      <div>kurs: {conversionRate}</div>
+    <div className="font-mono">
+      {origin === "nbp" ? <PrintNBP /> : <PrintInvoice />}
     </div>
   );
 };
