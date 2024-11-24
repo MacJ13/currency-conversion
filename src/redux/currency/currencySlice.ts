@@ -19,6 +19,8 @@ const nbpCurrencyData: NBPCurrencyData = {
   counterCurrency: "",
   baseRate: 0,
   counterRate: 0,
+  baseDate: "",
+  counterDate: "",
   error: null,
   status: "idle",
 };
@@ -53,8 +55,6 @@ export const fetchCurrencyNBP = createAsyncThunk(
           `https://api.nbp.pl/api/exchangerates/rates/${nbpCurrent.table}/${nbpCurrent.currency}/${nbpCurrent.date}/`
         ),
       ]);
-
-      console.log(res1, res2);
 
       [res1, res2].forEach((res) => {
         if (!res.ok) throw Error(res.statusText);
@@ -104,7 +104,7 @@ export const currencySlice = createSlice({
       })
       .addCase(fetchCurrencyNBP.fulfilled, (state, action) => {
         state.nbpCurrencyData.status = "succeeded";
-        console.log(action.payload);
+
         const [base, counter] = action.payload;
 
         state.nbpCurrencyData.baseCurrency = base.code;
@@ -113,8 +113,6 @@ export const currencySlice = createSlice({
         state.nbpCurrencyData.counterCurrency = counter.code;
         state.nbpCurrencyData.counterRate = counter.rates[0].mid;
 
-        console.log(base.rates[0].mid / counter.rates[0].mid);
-
         const conversion = base.rates[0].mid / counter.rates[0].mid;
 
         state.conversionRate = +conversion.toFixed(4);
@@ -122,7 +120,6 @@ export const currencySlice = createSlice({
       .addCase(fetchCurrencyNBP.rejected, (state, action) => {
         state.nbpCurrencyData.status = "failed";
 
-        state.nbpCurrencyData.error = action.error.message;
         console.log(action.error);
       });
   },

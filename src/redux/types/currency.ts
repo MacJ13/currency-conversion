@@ -10,6 +10,8 @@ export type InvoiceCurrencyData = CurrencyData;
 export type NBPCurrencyData = CurrencyData & {
   baseRate: number;
   counterRate: number;
+  baseDate: string;
+  counterDate: string;
   error?: null | string;
   status?: "idle" | "loading" | "succeeded" | "failed";
 };
