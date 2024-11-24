@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { InvoiceState } from "../types/invoices";
 import { RootState } from "../store";
 import { getRandomId } from "../../utils/helpers/getRandomId";
@@ -27,10 +27,16 @@ export const invoicesSlice = createSlice({
         },
       ];
     },
+    removeField: (state, action: PayloadAction<number>) => {
+      if (state.invoices.length <= 1) return;
+      const id = action.payload;
+
+      state.invoices = state.invoices.filter((invoice) => invoice.id !== id);
+    },
   },
 });
 
-export const { addField } = invoicesSlice.actions;
+export const { addField, removeField } = invoicesSlice.actions;
 
 export const selectInvoicesField = (state: RootState) =>
   state.invoices.invoices;

@@ -1,12 +1,16 @@
+import { useDispatch } from "react-redux";
 import Button from "../../components/button/Button";
 import Flex from "../../components/flex/Flex";
 import Input from "../../components/input/Input";
 import Label from "../../components/label/Label";
 import useFractionInput from "../../hooks/useFractionInput";
 import { InvoiceFieldProps } from "../../utils/types/components";
+import { removeField } from "../../redux/invoices/invoicesSlice";
 
 const InvoiceField = ({ invoice }: InvoiceFieldProps) => {
   const { inputValue, numberValue, handleNumberChange } = useFractionInput();
+
+  const dispatch = useDispatch();
 
   const fieldAmount = "amount" + invoice.id;
   const fieldDescription = "desc" + invoice.id;
@@ -55,7 +59,7 @@ const InvoiceField = ({ invoice }: InvoiceFieldProps) => {
         //   absolute top-1 right-1
         className="flex relative top-2.5 justify-center items-center text-white bg-red-700 font-black rounded-3xl w-7 h-7 "
         onClick={() => {
-          console.log("delete");
+          dispatch(removeField(invoice.id));
         }}
       >
         &#10005;
