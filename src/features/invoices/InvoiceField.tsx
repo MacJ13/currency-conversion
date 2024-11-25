@@ -59,8 +59,9 @@ const InvoiceField = ({ invoice }: InvoiceFieldProps) => {
       </Flex>
       <Flex className="flex gap-4">
         <Button
+          disabled={!inputValue || !description}
           //   absolute top-1 right-1
-          className="flex relative top-2.5 text-sm active:opacity-85 justify-center items-center text-white bg-blue-500  font-semibold px-3 py-1.5 rounded"
+          className="flex relative top-2.5 text-sm active:opacity-85 justify-center items-center text-white bg-blue-500  font-semibold px-3 py-1.5 rounded disabled:opacity-50"
           // className="flex relative top-2.5 justify-center items-center text-white bg-blue-500 font-black rounded-3xl w-7 h-7 "
           onClick={() => {
             if (!numberValue) return;
