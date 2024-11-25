@@ -165,5 +165,13 @@ export const isLoadingStatus = (state: RootState) =>
 export const selectNBPError = (state: RootState) =>
   state.currency.nbpCurrencyData.error;
 
+export const selectCurrentCurrency = (state: RootState) => {
+  const { baseCurrency, counterCurrency } =
+    state.currency.origin === "invoice"
+      ? state.currency.invoiceCurrencyData
+      : state.currency.nbpCurrencyData;
+  return { baseCurrency, counterCurrency };
+};
+
 // export the slice reducer for use in the store configuration
 export default currencySlice.reducer;
