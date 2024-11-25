@@ -38,7 +38,7 @@ const Invoices = () => {
               dispatch(addField());
             }}
           >
-            Dodaj
+            dodaj dane z faktury
           </Button>
         </Flex>
       </Flex>

@@ -18,9 +18,9 @@ const CurrencyEntryInvoice = () => {
   const dispatch = useDispatch();
 
   return (
-    <Flex className="flex gap-5 flex-col items-center justify-center">
-      <Heading type="h3" className="text-xl text-center mb-2">
-        1a. Wypełnij dane (faktura)
+    <Flex className="flex gap-5 flex-col items-center justify-center mb-10">
+      <Heading type="h2" className="text-2xl semi-bold text-center mb-4">
+        2. Wypełnij dane (faktura)
       </Heading>
       <Flex className="flex flex-col">
         <Flex className="flex gap-2.5 mb-2 items-center">
@@ -99,7 +99,7 @@ const CurrencyEntryInvoice = () => {
               !Boolean(numberValue)
             }
           >
-            następny krok
+            Przelicz
           </Button>
         </Flex>
       </Flex>

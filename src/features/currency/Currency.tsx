@@ -10,7 +10,7 @@ const Currency = () => {
   const origin = useSelector(selectCurrencyOrigin);
 
   return (
-    <div>
+    <div className="px-5">
       <CurrencyOrigin />
 
       {origin === "invoice" ? <CurrencyEntryInvoice /> : <CurrencyEntryNbp />}

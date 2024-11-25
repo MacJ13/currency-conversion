@@ -33,7 +33,7 @@ const PrintNBP = () => {
 
   return (
     <Flex className="flex flex-col justify-center">
-      <Flex className="flex flex-col mb-4 text-xl">
+      <Flex className="flex flex-col mb-7 text-xl">
         <div>
           1 {baseCurrency} = {baseRate} PLN (z dnia {baseDate})
         </div>

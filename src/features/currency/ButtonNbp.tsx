@@ -24,7 +24,7 @@ const ButtonNbp = () => {
         dispatch(fetchCurrencyNBP());
       }}
     >
-      następny krok
+      Przelicz
     </Button>
   );
 };
