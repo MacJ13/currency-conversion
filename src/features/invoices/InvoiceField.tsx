@@ -5,11 +5,13 @@ import Input from "../../components/input/Input";
 import Label from "../../components/label/Label";
 import useFractionInput from "../../hooks/useFractionInput";
 import { InvoiceFieldProps } from "../../utils/types/components";
-import { removeField } from "../../redux/invoices/invoicesSlice";
+import { removeField, updateField } from "../../redux/invoices/invoicesSlice";
+import { useState } from "react";
 
 const InvoiceField = ({ invoice }: InvoiceFieldProps) => {
   const { inputValue, numberValue, handleNumberChange } = useFractionInput();
 
+  const [description, setDescription] = useState<string>("");
   const dispatch = useDispatch();
 
   const fieldAmount = "amount" + invoice.id;
@@ -45,25 +47,42 @@ const InvoiceField = ({ invoice }: InvoiceFieldProps) => {
             type: "text",
             name: fieldDescription,
             id: fieldDescription,
-            value: invoice.description,
+            value: description,
           }}
           className="font-semibold bg-blue-100 border border-gray-300 text-gray-
     900 text-sm rounded-md focus:outline-none focus:border-blue-400 
     block w-14 p-1 w-full"
-          onChange={() => {
-            console.log("change");
+          onChange={(e) => {
+            setDescription(e.target.value);
           }}
         />
       </Flex>
-      <Button
-        //   absolute top-1 right-1
-        className="flex relative top-2.5 justify-center items-center text-white bg-red-700 font-black rounded-3xl w-7 h-7 "
-        onClick={() => {
-          dispatch(removeField(invoice.id));
-        }}
-      >
-        &#10005;
-      </Button>
+      <Flex className="flex gap-4">
+        <Button
+          //   absolute top-1 right-1
+          className="flex relative top-2.5 text-sm active:opacity-85 justify-center items-center text-white bg-blue-500  font-semibold px-3 py-1.5 rounded"
+          // className="flex relative top-2.5 justify-center items-center text-white bg-blue-500 font-black rounded-3xl w-7 h-7 "
+          onClick={() => {
+            if (!numberValue) return;
+
+            const field = { id: invoice.id, description, amount: numberValue };
+            dispatch(updateField(field));
+          }}
+        >
+          &#43;
+          {/* &#8644; */}
+        </Button>
+        <Button
+          //   absolute top-1 right-1
+          className="flex relative top-2.5 text-sm active:opacity-85 justify-center items-center text-white bg-red-600  font-semibold px-3 py-1.5 rounded"
+          onClick={() => {
+            dispatch(removeField(invoice.id));
+          }}
+        >
+          usuń
+          {/* &#10006; */}
+        </Button>
+      </Flex>
     </Flex>
   );
 };
