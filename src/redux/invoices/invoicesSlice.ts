@@ -43,10 +43,20 @@ export const invoicesSlice = createSlice({
         return invoice;
       });
     },
+    initInvoices: (state) => {
+      state.invoices = [
+        {
+          id: getRandomId(),
+          amount: 0,
+          description: "",
+        },
+      ];
+    },
   },
 });
 
-export const { addField, removeField, updateField } = invoicesSlice.actions;
+export const { addField, removeField, updateField, initInvoices } =
+  invoicesSlice.actions;
 
 export const selectInvoicesField = (state: RootState) =>
   state.invoices.invoices;
