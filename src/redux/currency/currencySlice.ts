@@ -21,6 +21,8 @@ const nbpCurrencyData: NBPCurrencyData = {
   counterRate: 0,
   baseDate: "",
   counterDate: "",
+  baseNo: "",
+  counterNo: "",
   error: null,
   status: "idle",
 };
@@ -66,6 +68,8 @@ export const fetchCurrencyNBP = createAsyncThunk(
 
       const table1 = await res1.json();
       const table2 = await res2.json();
+
+      console.log(table1, table2);
 
       return [table1, table2];
     } catch (err) {
@@ -119,10 +123,12 @@ export const currencySlice = createSlice({
         state.nbpCurrencyData.baseCurrency = base.code;
         state.nbpCurrencyData.baseRate = base.rates[0].mid;
         state.nbpCurrencyData.baseDate = base.rates[0].effectiveDate;
+        state.nbpCurrencyData.baseNo = base.rates[0].no;
 
         state.nbpCurrencyData.counterCurrency = counter.code;
         state.nbpCurrencyData.counterRate = counter.rates[0].mid;
         state.nbpCurrencyData.counterDate = counter.rates[0].effectiveDate;
+        state.nbpCurrencyData.counterNo = counter.rates[0].no;
 
         const conversion = base.rates[0].mid / counter.rates[0].mid;
 

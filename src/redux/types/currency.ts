@@ -12,6 +12,8 @@ export type NBPCurrencyData = CurrencyData & {
   counterRate: number;
   baseDate: string;
   counterDate: string;
+  baseNo: string;
+  counterNo: string;
   error?: null | string;
   status?: "idle" | "loading" | "succeeded" | "failed";
 };

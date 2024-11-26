@@ -23,6 +23,8 @@ const PrintNBP = () => {
     counterCurrency,
     counterDate,
     counterRate,
+    baseNo,
+    counterNo,
   } = useSelector(selectNBPCurrencies);
 
   if (loading)
@@ -32,16 +34,31 @@ const PrintNBP = () => {
 
   if (!conversionRate) return null;
 
+  const baseNbpLink = `https://nbp.pl/archiwum-kursow/tabela-nr-${baseNo
+    .split("/")
+    .join("-")
+    .toLowerCase()}-z-dnia-${baseDate}/`;
+
+  const counterNbpLink = `https://nbp.pl/archiwum-kursow/tabela-nr-${counterNo
+    .split("/")
+    .join("-")
+    .toLowerCase()}-z-dnia-${counterDate}/`;
+
   return (
     <Flex className="flex flex-col justify-center">
       <Flex className="flex flex-col mb-4 text-xl">
         <div>
-          1 {baseCurrency} = {baseRate} PLN (z dnia {convertDate(baseDate, "/")}
+          1 {baseCurrency} = {baseRate} PLN (
+          <a target="_blank" href={baseNbpLink}>
+            z dnia {convertDate(baseDate, "/")}
+          </a>
           )
         </div>
         <div>
-          1 {counterCurrency} = {counterRate} PLN (z dnia{" "}
-          {convertDate(counterDate, "/")})
+          1 {counterCurrency} = {counterRate} PLN (
+          <a target="_blank" href={counterNbpLink}>
+            z dnia {convertDate(counterDate, "/")})
+          </a>
         </div>
       </Flex>
       <Flex className="ml-3 text-xl mb-2">
