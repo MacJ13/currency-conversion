@@ -7,6 +7,7 @@ import {
 } from "../../redux/currency/currencySlice";
 import Flex from "../../components/flex/Flex";
 import { formatDecimalPlaces } from "../../utils/helpers/formatDecimalPlaces";
+import { convertDate } from "../../utils/helpers/convertDate";
 
 const PrintNBP = () => {
   const conversionRate = useSelector(selectCurrencyRate);
@@ -35,10 +36,12 @@ const PrintNBP = () => {
     <Flex className="flex flex-col justify-center">
       <Flex className="flex flex-col mb-4 text-xl">
         <div>
-          1 {baseCurrency} = {baseRate} PLN (z dnia {baseDate})
+          1 {baseCurrency} = {baseRate} PLN (z dnia {convertDate(baseDate, "/")}
+          )
         </div>
         <div>
-          1 {counterCurrency} = {counterRate} PLN (z dnia {counterDate})
+          1 {counterCurrency} = {counterRate} PLN (z dnia{" "}
+          {convertDate(counterDate, "/")})
         </div>
       </Flex>
       <Flex className="ml-3 text-xl mb-2">
