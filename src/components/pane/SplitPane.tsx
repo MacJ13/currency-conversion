@@ -17,19 +17,9 @@ const SplitPane = ({ left, right }: SplitPaneProps) => {
 
   const reactToPrintFn = useReactToPrint({
     contentRef,
-    pageStyle: `
-      @media print {
-        @page { margin: 0; }
-      }
-      body {
-        -webkit-print-color-adjust: exact;
-      }
-    `,
   });
 
   const show = Boolean(conversionRate) || Boolean(error);
-
-  console.log(show);
 
   return (
     <div className="flex flex-1 w-full relative ">

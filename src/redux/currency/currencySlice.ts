@@ -69,8 +69,6 @@ export const fetchCurrencyNBP = createAsyncThunk(
       const table1 = await res1.json();
       const table2 = await res2.json();
 
-      console.log(table1, table2);
-
       return [table1, table2];
     } catch (err) {
       throw err;
@@ -136,8 +134,6 @@ export const currencySlice = createSlice({
       })
       .addCase(fetchCurrencyNBP.rejected, (state, action) => {
         state.nbpCurrencyData.status = "failed";
-
-        console.log(action.error);
 
         state.nbpCurrencyData.error =
           action.error.message +
