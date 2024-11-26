@@ -21,12 +21,12 @@ const PrintInvoice = () => {
 
   return (
     <Flex className="flex flex-col">
-      <Heading type="h2" className=" mb-7 text-xl">
+      <Heading type="h2" className=" mb-4 text-xl">
         Kurs zgodny z zał. fakturą z wymiany kursu walut z{" "}
         {<strong>{baseCode}</strong>} na {<strong>{counterCode}</strong>}:
       </Heading>
-      <Flex className="flex text-3xl justify-center ">
-        <div className="pb-2 border-b-2 border-black">
+      <Flex className="flex text-2xl ">
+        <div className="ml-3 pb-2 border-b-2 border-black">
           {" "}
           1 {baseCode} = {conversionRate.toFixed(4)} {counterCode}
         </div>

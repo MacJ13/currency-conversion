@@ -19,14 +19,17 @@ const PrintField = ({
   const result = formatDecimalPlaces(invoice.amount / currencyRate, 2);
 
   return (
-    <div>
-      <Heading type="h3" className="mb-4 text-xl">
+    <div className="mb-5 last:mb-0 ">
+      <Heading type="h3" className="mb-2 text-xl">
         {invoice.description}:
       </Heading>
-      <div className="text-3xl">
-        {formatDecimalPlaces(invoice.amount, 2)} {upperCase(counterCurrency)} /{" "}
-        {currencyRate} {upperCase(counterCurrency)} &#8776;{" "}
-        <span className="border-b-2 border-black text-4xl">
+      <div className="text-xl ml-3">
+        <div className="mb-2">
+          {formatDecimalPlaces(invoice.amount, 2)} {upperCase(counterCurrency)}{" "}
+          / {currencyRate} {upperCase(counterCurrency)}{" "}
+          <span className="text-3xl">&#8776;</span>
+        </div>
+        <span className="border-b-2 inline-block pb-1 border-black text-2xl">
           {result} {upperCase(baseCurrency)}
         </span>
       </div>

@@ -3,6 +3,7 @@ import { selectInvoicesField } from "../../redux/invoices/invoicesSlice";
 import {
   selectCurrencyRate,
   selectCurrentCurrency,
+  selectNBPError,
 } from "../../redux/currency/currencySlice";
 import Flex from "../../components/flex/Flex";
 import PrintField from "./PrintField";
@@ -13,6 +14,10 @@ const PrintInvoiceFields = () => {
   const currencyRate = useSelector(selectCurrencyRate);
 
   const { baseCurrency, counterCurrency } = useSelector(selectCurrentCurrency);
+
+  const error = useSelector(selectNBPError);
+
+  if (error) return null;
 
   const invoicesEl = invoices.map((invoice) => {
     // const result = formatDecimalPlaces(invoice.amount / currencyRate, 2);
@@ -29,7 +34,7 @@ const PrintInvoiceFields = () => {
     );
   });
 
-  return <Flex className="flex flex-col gap-8">{invoicesEl}</Flex>;
+  return <Flex className="flex flex-col gap-6">{invoicesEl}</Flex>;
 };
 
 export default PrintInvoiceFields;

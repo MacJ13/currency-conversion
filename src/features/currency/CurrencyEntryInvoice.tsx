@@ -18,19 +18,19 @@ const CurrencyEntryInvoice = () => {
   const dispatch = useDispatch();
 
   return (
-    <Flex className="flex gap-5 flex-col items-center justify-center mb-10">
-      <Heading type="h2" className="text-2xl semi-bold text-center mb-4">
+    <Flex className="flex gap-5 flex-col items-center justify-center">
+      <Heading
+        type="h2"
+        className="text-2xl font-semibold text-center tracking-wide mb-4"
+      >
         2. Wypełnij dane (faktura)
       </Heading>
       <Flex className="flex flex-col">
-        <Flex className="flex gap-2.5 mb-2 items-center">
-          <Label className="font-semibold w-36" htmlFor="baseCurrency">
-            waluta bazowa:
-          </Label>
+        <Flex className="flex gap-2.5 mb-3 items-center">
           <Input
-            className="font-semibold bg-blue-100 border border-gray-300 text-gray-
-           900 text-sm rounded-md focus:outline-none focus:border-blue-400 
-           block w-14 p-1"
+            className="font-semibold text-base bg-blue-100 border border-blue-200  text-gray-
+           900 text-sm rounded focus:outline-none focus:border-blue-400 
+           block w-16 p-1.5 pl-2"
             onChange={(e) => {
               setBaseCurrency(e.target.value.toUpperCase());
             }}
@@ -41,16 +41,16 @@ const CurrencyEntryInvoice = () => {
               value: baseCurrency,
             }}
           />
+          <Label className="font-semibold w-36" htmlFor="baseCurrency">
+            waluta bazowa
+          </Label>
         </Flex>
-        <Flex className="flex gap-7 justify-center mb-8">
+        <Flex className="flex gap-4 justify-center mb-8">
           <Flex className="flex gap-2.5 items-center">
-            <Label className="font-semibold w-36" htmlFor="amountCurrency">
-              waluta kwotowana:
-            </Label>
             <Input
-              className="font-semibold bg-blue-100 border border-gray-300 text-gray-
-          900 text-sm rounded-md focus:outline-none focus:border-blue-400 
-          block w-14 p-1"
+              className="font-semibold text-base bg-blue-100 border border-blue-200  text-gray-
+              900 text-sm rounded focus:outline-none focus:border-blue-400 
+              block w-16 p-1.5 pl-2"
               onChange={(e) => {
                 setCounterCurrency(e.target.value.toUpperCase());
               }}
@@ -61,13 +61,15 @@ const CurrencyEntryInvoice = () => {
                 value: counterCurrency,
               }}
             />
+            <Label className="font-semibold w-36" htmlFor="counterCurrency">
+              waluta kwotowana
+            </Label>
           </Flex>
           <Flex className="flex gap-2.5 items-center">
-            <Label htmlFor="amountCurrency">wartość:</Label>
             <Input
-              className="font-semibold bg-blue-100 border border-gray-300 text-gray-
-            900 text-sm rounded-md focus:outline-none focus:border-blue-400 
-            block w-20 p-1"
+              className="font-semibold text-base  bg-blue-100 border border-blue-200  text-gray-
+             900 text-sm rounded focus:outline-none focus:border-blue-400 
+             block w-24 p-1.5 pl-2"
               onChange={(e) => {
                 handleNumberChange(e.target.value);
               }}
@@ -78,6 +80,9 @@ const CurrencyEntryInvoice = () => {
                 value: inputValue,
               }}
             />
+            <Label className="font-semibold" htmlFor="amountCurrency">
+              wartość
+            </Label>
           </Flex>
         </Flex>
         <Flex className="flex justify-center ">
@@ -91,7 +96,7 @@ const CurrencyEntryInvoice = () => {
                 })
               );
             }}
-            className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded  opacity-100 disabled:opacity-50 "
+            className="bg-blue-500 relative hover:bg-blue-400 active:top-1 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded  opacity-100 disabled:opacity-50 "
             disabled={
               counterCurrency === baseCurrency ||
               counterCurrency.length !== 3 ||

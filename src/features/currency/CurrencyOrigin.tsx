@@ -20,31 +20,38 @@ const CurrencyOrigin = () => {
   const radioButtons = RADIO_BUTTONS_DATA.map((radioBtn) => {
     const checked = origin === radioBtn.value;
 
+    const labelClassname = checked ? "font-semibold" : "";
+
+    const flexClassname = checked ? "" : "opacity-80 hover:opacity-100";
+
     return (
-      <>
-        <Flex className="flex gap-3">
-          <Input
-            checked={checked}
-            input={radioBtn}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              const origin = e.target.value as Origin;
-              dispatch(chooseOrigin(origin));
-              dispatch(clearNBP());
-              dispatch(initInvoices());
-            }}
-          />
-          <Label htmlFor={radioBtn.id}>{radioBtn.label}</Label>
-        </Flex>
-      </>
+      <Flex key={radioBtn.id} className={`flex gap-3 ${flexClassname}`}>
+        <Input
+          checked={checked}
+          input={radioBtn}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            const origin = e.target.value as Origin;
+            dispatch(chooseOrigin(origin));
+            dispatch(clearNBP());
+            dispatch(initInvoices());
+          }}
+        />
+        <Label className={labelClassname} htmlFor={radioBtn.id}>
+          {radioBtn.label}
+        </Label>
+      </Flex>
     );
   });
 
   return (
-    <div>
-      <Heading type="h2" className="text-2xl semi-bold text-center mb-4">
+    <div className="border-b-2 py-7 border-sky-800">
+      <Heading
+        type="h2"
+        className="text-2xl font-semibold text-center tracking-wide mb-4"
+      >
         {"1. Wybierz rodzaj pochodzenia:"}
       </Heading>
-      <Flex className="flex justify-center gap-6 mb-8">{radioButtons}</Flex>
+      <Flex className="flex justify-center gap-6">{radioButtons}</Flex>
     </div>
   );
 };

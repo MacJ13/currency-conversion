@@ -11,6 +11,7 @@ import {
   enterNBPDate,
   selectCurrentNbp,
 } from "../../redux/nbp/nbpSlice";
+import { upperCase } from "../../utils/helpers/upperCase";
 
 const FieldNBP = ({ type }: FieldNBPProps) => {
   const currentNbp = useSelector((state: RootState) => {
@@ -20,14 +21,22 @@ const FieldNBP = ({ type }: FieldNBPProps) => {
   const dispatch = useDispatch();
 
   const radioBtns = ["a", "b"].map((btn) => {
+    const checked = currentNbp.table === btn;
+
+    const opacity = checked ? " " : "opacity-80 hover:opacity-100";
+    const bold = checked ? "font-semibold" : "font-normal ";
+
     return (
-      <Flex className=" gap-2 items-center justify-center">
+      <Flex
+        key={btn}
+        className={`gap-2 items-center justify-center ${opacity}`}
+      >
         <Flex className="flex gap-1  items-center justify-center">
-          <Label className="font-semibold" htmlFor="baseCurrency">
-            {btn}
+          <Label className={bold} htmlFor="baseCurrency">
+            {upperCase(btn)}
           </Label>
           <Input
-            checked={currentNbp.table === btn}
+            checked={checked}
             input={{
               type: "radio",
               id: btn,
@@ -46,32 +55,32 @@ const FieldNBP = ({ type }: FieldNBPProps) => {
   });
 
   return (
-    <Flex className="flex items-center ">
-      <Flex className="flex gap-2 mr-8">
-        <Label htmlFor="">Tabela:</Label>
+    <Flex className="flex items-center gap-7">
+      <Flex className="flex gap-2 mr-2">
+        <div className="font-semibold">Tabela</div>
 
         {radioBtns}
       </Flex>
-      <Flex className="flex items-center flex gap-2 w-56">
-        <Label className="font-semibold w-36" htmlFor={currentNbp.type}>
-          {currentNbp.label}
-        </Label>
+      <Flex className="flex items-center flex gap-2">
         <Input
           input={{
             type: "text",
             name: currentNbp.type,
             id: currentNbp.type,
-            value: currentNbp.currency.toUpperCase(),
+            value: upperCase(currentNbp.currency),
           }}
-          className="font-semibold bg-blue-100 border border-gray-300 text-gray-
-      900 text-sm rounded-md focus:outline-none focus:border-blue-400 
-      block w-14 p-1"
+          className="font-semibold text-base bg-blue-100 border border-blue-200  text-gray-
+              900 text-sm rounded focus:outline-none focus:border-blue-400 
+              block w-16 p-1.5 pl-2"
           onChange={(e) => {
             const currency = e.target.value.toLowerCase();
 
             dispatch(enterNBPCurrency({ currency, type }));
           }}
         />
+        <Label className="font-semibold w-36" htmlFor={currentNbp.type}>
+          {currentNbp.label}
+        </Label>
       </Flex>
       <Flex className="flex gap-2 items-center">
         {/* <Label className="font-semibold" htmlFor={"date" + currentNbp.type}>
@@ -84,9 +93,9 @@ const FieldNBP = ({ type }: FieldNBPProps) => {
             id: "date" + currentNbp.type,
             value: currentNbp.date,
           }}
-          className=" font-semibold bg-blue-100 border border-gray-300 text-gray-
-      900 text-sm rounded-md focus:outline-none focus:border-blue-400 
-      block w-22 p-1"
+          className="font-semibold text-base bg-blue-100 border border-blue-200  text-gray-
+              900 text-sm rounded focus:outline-none focus:border-blue-400 
+              block w-22 p-1.5 pl-2"
           onChange={(e) => {
             const date = e.target.value;
             dispatch(enterNBPDate({ type, date }));

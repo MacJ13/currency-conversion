@@ -10,14 +10,14 @@ export const RADIO_BUTTONS_DATA = [
     name: RADIO_BUTTON_CURRENCY_GROUP,
     id: "nbp",
     value: "nbp",
-    label: "z tabeli nbp",
+    label: "tabela nbp",
   },
   {
     type: RADIO_INPUT,
     name: RADIO_BUTTON_CURRENCY_GROUP,
     id: "invoice",
     value: "invoice",
-    label: "z rachunku/faktury/dokumentu",
+    label: "rachunek/faktura/dokument",
   },
 ];
 

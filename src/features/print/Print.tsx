@@ -8,7 +8,7 @@ const Print = () => {
   const origin = useSelector(selectCurrencyOrigin);
 
   return (
-    <div className="font-mono flex flex-col gap-14 px-5">
+    <div className="font-mono flex flex-col gap-14 px-5 w-[72.5%]">
       {origin === "nbp" ? <PrintNBP /> : <PrintInvoice />}
       <PrintInvoiceFields />
     </div>

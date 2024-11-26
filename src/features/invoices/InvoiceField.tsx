@@ -18,10 +18,10 @@ const InvoiceField = ({ invoice }: InvoiceFieldProps) => {
   const fieldDescription = "desc" + invoice.id;
 
   return (
-    <Flex className="flex relative items-center gap-8 border-2 px-2 py-4">
+    <Flex className="flex relative items-center gap-5 px-4">
       <Flex className="flex flex-col w-24">
         <Label htmlFor={fieldAmount} className="font-semibold">
-          Kwota:
+          Kwota
         </Label>
         <Input
           input={{
@@ -30,9 +30,9 @@ const InvoiceField = ({ invoice }: InvoiceFieldProps) => {
             id: fieldAmount,
             value: inputValue,
           }}
-          className="font-semibold bg-blue-100 border border-gray-300 text-gray-
-    900 text-sm rounded-md focus:outline-none focus:border-blue-400 
-    block w-14 p-1 w-full"
+          className="font-semibold text-base  bg-blue-100 border border-blue-200  text-gray-
+             900 text-sm rounded focus:outline-none focus:border-blue-400 
+             block p-1.5 pl-2"
           onChange={(e) => {
             handleNumberChange(e.target.value);
           }}
@@ -40,7 +40,7 @@ const InvoiceField = ({ invoice }: InvoiceFieldProps) => {
       </Flex>
       <Flex className="flex-1 flex flex-col">
         <Label htmlFor={fieldDescription} className="font-semibold">
-          Opis:
+          Opis
         </Label>
         <Input
           input={{
@@ -49,9 +49,9 @@ const InvoiceField = ({ invoice }: InvoiceFieldProps) => {
             id: fieldDescription,
             value: description,
           }}
-          className="font-semibold bg-blue-100 border border-gray-300 text-gray-
-    900 text-sm rounded-md focus:outline-none focus:border-blue-400 
-    block w-14 p-1 w-full"
+          className="font-semibold text-base  bg-blue-100 border border-blue-200  text-gray-
+             900 text-sm rounded focus:outline-none focus:border-blue-400 
+             block w-full p-1.5 pl-2"
           onChange={(e) => {
             setDescription(e.target.value);
           }}
@@ -61,7 +61,7 @@ const InvoiceField = ({ invoice }: InvoiceFieldProps) => {
         <Button
           disabled={!inputValue || !description}
           //   absolute top-1 right-1
-          className="flex relative top-2.5 text-sm active:opacity-85 justify-center items-center text-white bg-blue-500  font-semibold px-3 py-1.5 rounded disabled:opacity-50"
+          className="flex relative top-3 active:top-3.5 text-sm active:opacity-85 justify-center items-center text-white bg-blue-500  font-semibold px-3 py-1.5 rounded disabled:opacity-50"
           // className="flex relative top-2.5 justify-center items-center text-white bg-blue-500 font-black rounded-3xl w-7 h-7 "
           onClick={() => {
             if (!numberValue) return;
@@ -75,13 +75,12 @@ const InvoiceField = ({ invoice }: InvoiceFieldProps) => {
         </Button>
         <Button
           //   absolute top-1 right-1
-          className="flex relative top-2.5 text-sm active:opacity-85 justify-center items-center text-white bg-red-600  font-semibold px-3 py-1.5 rounded"
+          className="flex relative top-3 active:top-3.5 text-sm active:opacity-85 justify-center items-center text-white bg-red-600  font-semibold px-3 py-2 rounded"
           onClick={() => {
             dispatch(removeField(invoice.id));
           }}
         >
           usuń
-          {/* &#10006; */}
         </Button>
       </Flex>
     </Flex>

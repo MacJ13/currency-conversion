@@ -24,11 +24,14 @@ const Invoices = () => {
   if (!currencyRate) return null;
 
   return (
-    <div className="border-2 w-11/12 m-auto p-2">
-      <Heading type="h2" className="text-2xl semi-bold text-center mb-4">
+    <div className="py-7 w-[100%] m-auto">
+      <Heading
+        type="h2"
+        className="text-2xl font-semibold text-center tracking-wide mb-4"
+      >
         3. Wprowadź dane z faktur
       </Heading>
-      <Flex className="flex flex-col gap-4">
+      <Flex className="flex flex-col gap-5">
         {invoiceFields}
 
         <Flex className="flex justify-center">

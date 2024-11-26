@@ -33,7 +33,7 @@ const PrintNBP = () => {
 
   return (
     <Flex className="flex flex-col justify-center">
-      <Flex className="flex flex-col mb-7 text-xl">
+      <Flex className="flex flex-col mb-4 text-xl">
         <div>
           1 {baseCurrency} = {baseRate} PLN (z dnia {baseDate})
         </div>
@@ -41,11 +41,11 @@ const PrintNBP = () => {
           1 {counterCurrency} = {counterRate} PLN (z dnia {counterDate})
         </div>
       </Flex>
-      <Flex className="text-xl mb-4 ">
+      <Flex className="ml-3 text-xl mb-2">
         {baseRate} / {counterRate} &#8776; {conversionRate}
       </Flex>
-      <Flex className="flex text-3xl ">
-        <div className="pb-2 border-b-2 border-black">
+      <Flex className="flex text-2xl ">
+        <div className="ml-3 pb-1 border-b-2 border-black">
           {" "}
           1 {baseCurrency} = {formatDecimalPlaces(conversionRate, 4)}{" "}
           {counterCurrency}
