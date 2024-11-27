@@ -8,6 +8,7 @@ import {
 import Flex from "../../components/flex/Flex";
 import { formatDecimalPlaces } from "../../utils/helpers/formatDecimalPlaces";
 import { convertDate } from "../../utils/helpers/convertDate";
+import { getNbpLink } from "../../utils/helpers/getNbpLink";
 
 const PrintNBP = () => {
   const conversionRate = useSelector(selectCurrencyRate);
@@ -34,15 +35,8 @@ const PrintNBP = () => {
 
   if (!conversionRate) return null;
 
-  const baseNbpLink = `https://nbp.pl/archiwum-kursow/tabela-nr-${baseNo
-    .split("/")
-    .join("-")
-    .toLowerCase()}-z-dnia-${baseDate}/`;
-
-  const counterNbpLink = `https://nbp.pl/archiwum-kursow/tabela-nr-${counterNo
-    .split("/")
-    .join("-")
-    .toLowerCase()}-z-dnia-${counterDate}/`;
+  const baseNbpLink = getNbpLink(baseNo, baseDate);
+  const counterNbpLink = getNbpLink(counterNo, counterDate);
 
   return (
     <Flex className="flex flex-col justify-center">
