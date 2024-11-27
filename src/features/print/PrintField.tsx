@@ -20,13 +20,13 @@ const PrintField = ({
 
   return (
     <div className="mb-5 last:mb-0 ">
-      <Heading type="h3" className="mb-2 text-xl">
+      <Heading type="h3" className="mb-2 text-lg font-medium">
         {invoice.description}:
       </Heading>
       <div className="text-xl ml-3">
         <div className="mb-2">
           {formatDecimalPlaces(invoice.amount, 2)} {upperCase(counterCurrency)}{" "}
-          / {currencyRate} {upperCase(counterCurrency)}{" "}
+          / {formatDecimalPlaces(currencyRate, 4)} {upperCase(counterCurrency)}{" "}
           <span className="text-3xl">&#8776;</span>
         </div>
         <span className="border-b-2 inline-block pb-1 border-black text-2xl">
