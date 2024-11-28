@@ -29,7 +29,9 @@ const CurrencyOrigin = () => {
         <Input
           checked={checked}
           input={radioBtn}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          onChange={(
+            e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+          ) => {
             const origin = e.target.value as Origin;
             dispatch(chooseOrigin(origin));
             dispatch(clearNBP());
