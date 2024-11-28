@@ -43,7 +43,9 @@ const FieldNBP = ({ type }: FieldNBPProps) => {
               name: currentNbp.type,
               value: btn,
             }}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            onChange={(
+              e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+            ) => {
               const currentTable = e.target.value as "a" | "b";
 
               dispatch(changeNBPTable({ table: currentTable, type }));
