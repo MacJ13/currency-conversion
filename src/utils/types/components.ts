@@ -31,7 +31,9 @@ type Input = {
 export type InputProps = ElementProps & {
   input: Input;
   checked?: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
 };
 
 export type SplitPaneProps = {

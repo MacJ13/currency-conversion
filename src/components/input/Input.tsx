@@ -13,6 +13,18 @@ const Input = ({
     ...(type === "radio" && { checked }),
   };
 
+  if (type === "textarea") {
+    return (
+      <textarea
+        className={className}
+        value={value}
+        name={name}
+        id={id}
+        onChange={onChange}
+      ></textarea>
+    );
+  }
+
   return (
     <input
       className={className}
