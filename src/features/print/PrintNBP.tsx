@@ -9,6 +9,7 @@ import Flex from "../../components/flex/Flex";
 import { formatDecimalPlaces } from "../../utils/helpers/formatDecimalPlaces";
 import { convertDate } from "../../utils/helpers/convertDate";
 import { getNbpLink } from "../../utils/helpers/getNbpLink";
+import LinkNBP from "./LinkNBP";
 
 const PrintNBP = () => {
   const conversionRate = useSelector(selectCurrencyRate);
@@ -35,24 +36,25 @@ const PrintNBP = () => {
 
   if (!conversionRate) return null;
 
-  const baseNbpLink = getNbpLink(baseNo, baseDate);
-  const counterNbpLink = getNbpLink(counterNo, counterDate);
+  // const baseNbpLink = getNbpLink(baseNo, baseDate);
+  // const counterNbpLink = getNbpLink(counterNo, counterDate);
 
   return (
     <Flex className="flex flex-col justify-center">
       <Flex className="flex flex-col mb-4 text-lg">
         <div>
           1 {baseCurrency} = {baseRate} PLN (
-          <a target="_blank" href={baseNbpLink}>
+          {/* <a target="_blank" href={baseNbpLink}>
             z dnia {convertDate(baseDate, "/")}
-          </a>
-          )
+          </a> */}
+          <LinkNBP issue={baseNo} date={baseDate} />)
         </div>
         <div>
           1 {counterCurrency} = {counterRate} PLN (
-          <a target="_blank" href={counterNbpLink}>
+          {/* <a target="_blank" href={counterNbpLink}>
             z dnia {convertDate(counterDate, "/")})
-          </a>
+          </a> */}
+          <LinkNBP issue={counterNo} date={counterDate} />)
         </div>
       </Flex>
       <Flex className="ml-3 text-xl mb-2">
