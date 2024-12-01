@@ -7,6 +7,8 @@ import {
   NBPCurrencyData,
   InvoiceCurrencyData,
 } from "../types/currency";
+import { getNBPRateEnpoint } from "../../utils/helpers/getNBPRateEndpoint";
+import { NBP_RATE_URL } from "../../utils/constants/nbpURL";
 
 // Define the TS type for the counter slice's state
 
@@ -52,24 +54,25 @@ export const fetchCurrencyNBP = createAsyncThunk(
 
     const { nbpBase, nbpCurrent } = state.nbp;
 
+    const nbpBaseEndpoint = getNBPRateEnpoint(nbpBase);
+    const nbpCurrentEndpoint = getNBPRateEnpoint(nbpCurrent);
+
     try {
-      const [res1, res2] = await Promise.all([
-        fetch(
-          `https://api.nbp.pl/api/exchangerates/rates/${nbpBase.table}/${nbpBase.currency}/${nbpBase.date}/`
-        ),
-        fetch(
-          `https://api.nbp.pl/api/exchangerates/rates/${nbpCurrent.table}/${nbpCurrent.currency}/${nbpCurrent.date}/`
-        ),
+      const [responseBase, responseCurrent] = await Promise.all([
+        fetch(NBP_RATE_URL + nbpBaseEndpoint),
+        fetch(NBP_RATE_URL + nbpCurrentEndpoint),
       ]);
 
-      [res1, res2].forEach((res) => {
+      [responseBase, responseCurrent].forEach((res) => {
         if (!res.ok) throw Error(res.statusText);
       });
 
-      const table1 = await res1.json();
-      const table2 = await res2.json();
+      const [resultBase, resultCurrent] = await Promise.all([
+        responseBase.json(),
+        responseCurrent.json(),
+      ]);
 
-      return [table1, table2];
+      return [resultBase, resultCurrent];
     } catch (err) {
       throw err;
     }

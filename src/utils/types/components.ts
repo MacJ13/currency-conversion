@@ -48,3 +48,8 @@ export type FieldNBPProps = {
 export type InvoiceFieldProps = {
   invoice: Invoice;
 };
+
+export type LinkNBPProps = {
+  issue: string;
+  date: string;
+};
