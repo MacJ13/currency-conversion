@@ -7,9 +7,8 @@ import {
 } from "../../redux/currency/currencySlice";
 import Flex from "../../components/flex/Flex";
 import { formatDecimalPlaces } from "../../utils/helpers/formatDecimalPlaces";
-import { convertDate } from "../../utils/helpers/convertDate";
-import { getNbpLink } from "../../utils/helpers/getNbpLink";
 import LinkNBP from "./LinkNBP";
+import { generateFractionalNumber } from "../../utils/helpers/generateFractionalNumber";
 
 const PrintNBP = () => {
   const conversionRate = useSelector(selectCurrencyRate);
@@ -36,29 +35,22 @@ const PrintNBP = () => {
 
   if (!conversionRate) return null;
 
-  // const baseNbpLink = getNbpLink(baseNo, baseDate);
-  // const counterNbpLink = getNbpLink(counterNo, counterDate);
-
+  const baseRateFractional = generateFractionalNumber(baseRate);
+  const counterRateFractional = generateFractionalNumber(counterRate);
   return (
     <Flex className="flex flex-col justify-center">
       <Flex className="flex flex-col mb-4 text-lg">
         <div>
-          1 {baseCurrency} = {baseRate} PLN (
-          {/* <a target="_blank" href={baseNbpLink}>
-            z dnia {convertDate(baseDate, "/")}
-          </a> */}
+          1 {baseCurrency} = {baseRateFractional} PLN (
           <LinkNBP issue={baseNo} date={baseDate} />)
         </div>
         <div>
           1 {counterCurrency} = {counterRate} PLN (
-          {/* <a target="_blank" href={counterNbpLink}>
-            z dnia {convertDate(counterDate, "/")})
-          </a> */}
           <LinkNBP issue={counterNo} date={counterDate} />)
         </div>
       </Flex>
       <Flex className="ml-3 text-xl mb-2">
-        {baseRate} / {counterRate} &#8776; {conversionRate}
+        {baseRateFractional} / {counterRateFractional} &#8776; {conversionRate}
       </Flex>
       <Flex className="flex text-2xl ">
         <div className="ml-3 pb-1 border-b-2 border-black">
