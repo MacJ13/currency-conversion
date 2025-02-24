@@ -20,11 +20,7 @@ const PrintField = ({
 
   const resultClassName = `${
     !invoice.isObjectionVisible || !invoice.objection
-<<<<<<< HEAD
-      ? "border-b-2 border-black"
-=======
       ? "underline underline-offset-8"
->>>>>>> feature/add-objection
       : ""
   } inline-block pb-1  text-2xl`;
 
@@ -43,19 +39,6 @@ const PrintField = ({
           {result} {upperCase(baseCurrency)}
         </span>
       </div>
-      {invoice.isObjectionVisible && invoice.objection && (
-        <div className="text-xl ml-3">
-          <div className="mb-2">
-<<<<<<< HEAD
-            <span className="border-b-2 inline-block pb-1 border-black text-2xl">
-=======
-            <span className="underline underline-offset-8 inline-block pb-1 text-2xl">
->>>>>>> feature/add-objection
-              ({invoice.objection})
-            </span>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
