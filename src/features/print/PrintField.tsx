@@ -18,6 +18,12 @@ const PrintField = ({
 }: PrintField) => {
   const result = formatDecimalPlaces(invoice.amount / currencyRate, 2);
 
+  const resultClassName = `${
+    !invoice.isObjectionVisible || !invoice.objection
+      ? "border-b-2 border-black"
+      : ""
+  } inline-block pb-1  text-2xl`;
+
   return (
     <div className="mb-5 last:mb-0 ">
       <Heading type="h3" className="mb-2 text-lg font-medium">
@@ -29,10 +35,19 @@ const PrintField = ({
           / {formatDecimalPlaces(currencyRate, 4)} {upperCase(counterCurrency)}{" "}
           <span className="text-3xl">&#8776;</span>
         </div>
-        <span className="border-b-2 inline-block pb-1 border-black text-2xl">
+        <span className={resultClassName}>
           {result} {upperCase(baseCurrency)}
         </span>
       </div>
+      {invoice.isObjectionVisible && invoice.objection && (
+        <div className="text-xl ml-3">
+          <div className="mb-2">
+            <span className="border-b-2 inline-block pb-1 border-black text-2xl">
+              ({invoice.objection})
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
